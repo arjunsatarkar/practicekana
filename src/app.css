@@ -1,6 +1,57 @@
-body {
-    font-size: 1.2rem;
+@font-face {
+    font-family: "Noto Sans JP";
+    src: url("./assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf") format("truetype");
 }
-h1, h2, h3, h4, h5, h6 {
+
+:root {
+    --font-size-normal: 1.2rem;
+    --font-size-prominent: 4em;
+    --fullwidth: 90%;
+}
+
+@media (min-width: 600px) {
+    :root {
+        --fullwidth: 65%;
+    }
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: var(-font-size-normal);
+    margin-top: 2rem;
+}
+
+hr {
+    width: var(--fullwidth);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-align: center;
     text-wrap: balance;
+}
+
+header, footer {
+    text-align: center;
+}
+
+[lang="ja"] {
+    font-family: "Noto Sans JP";
+}
+
+a:visited {
+    color: LinkText;
+}
+
+a:active {
+    color: ActiveText;
 }
