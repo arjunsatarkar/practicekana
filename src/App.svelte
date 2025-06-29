@@ -144,8 +144,9 @@
         currentView = "FINAL_RESULTS";
       }}
     /><br />
-    Completed {completedRounds + (currentView === "WORD_RESULTS" ? 1 : 0)} rounds<br
-    />
+    {@const displayedRounds =
+      completedRounds + (currentView === "WORD_RESULTS" ? 1 : 0)}
+    Completed {displayedRounds} round{displayedRounds === 1 ? "" : "s"}<br />
     <small>
       Since there are <a
         href="https://www.japanesewithanime.com/2017/12/romaji-systems-hepburn-nihon-kunrei.html"
