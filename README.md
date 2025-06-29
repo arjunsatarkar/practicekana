@@ -1,6 +1,6 @@
 # Practice katakana and hiragana with words from Wiktionary
 
-https://kanapractice.arjunsatarkar.net/
+https://practicekana.arjunsatarkar.net/
 
 ## Copying
 
