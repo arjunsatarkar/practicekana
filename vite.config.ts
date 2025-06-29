@@ -22,18 +22,5 @@ export default defineConfig({
   define: {
     __APP_HOME__: JSON.stringify("https://kanapractice.arjunsatarkar.net/"),
     __SOURCE_REPO__: JSON.stringify("https://github.com/arjunsatarkar/practice_kana_words")
-  }, build: {
-    rollupOptions: {
-      plugins: [
-        license({
-          thirdParty: {
-            output: path.resolve(__dirname, './dist/assets/vendor.LICENSE.txt'),
-            includePrivate: true,
-            includeSelf: true,
-            multipleVersions: true,
-          },
-        }),
-      ],
-    },
   },
 })
