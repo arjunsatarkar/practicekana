@@ -14,7 +14,7 @@
     let copied = $state(false);
 </script>
 
-<span class="finalScore">You scored {score} / {rounds}</span>
+<span class="finalScore">You scored {score}&nbsp;/&nbsp;{rounds}</span>
 {#if score >= 3 && score === rounds}
     <span
         ><a href="https://ichigoproduction.com/talent/arima.html">Arima Kana</a>
@@ -40,31 +40,33 @@
         <br /> <small>Copied to clipboard</small>
     {/if}
 </div>
-<table>
-    <thead>
-        <tr>
-            <th>Word</th>
-            <th>You Answered</th>
-            <th>Score</th>
-        </tr></thead
-    >
-    <tbody>
-        {#each words as [word, answer, correct]}
+{#if rounds}
+    <table>
+        <thead>
             <tr>
-                <td lang="ja">{word}</td>
-                <td>{answer}</td>
-                <td>{(correct && "✅") || "❌"}</td></tr
-            >
-        {/each}
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Total</th>
-            <td></td>
-            <td>{score} / {rounds}</td>
-        </tr>
-    </tfoot>
-</table>
+                <th>Word</th>
+                <th>You Answered</th>
+                <th>Score</th>
+            </tr></thead
+        >
+        <tbody>
+            {#each words as [word, answer, correct]}
+                <tr>
+                    <td lang="ja">{word}</td>
+                    <td>{answer}</td>
+                    <td>{(correct && "✅") || "❌"}</td></tr
+                >
+            {/each}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <td></td>
+                <td>{score} / {rounds}</td>
+            </tr>
+        </tfoot>
+    </table>
+{/if}
 
 <style>
     .finalScore {
@@ -74,6 +76,7 @@
     table {
         border-collapse: collapse;
     }
+
     th,
     td {
         border: 1px solid black;

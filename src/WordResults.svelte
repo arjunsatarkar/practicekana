@@ -81,8 +81,9 @@
     }
 
     iframe {
-        width: var(--fullwidth);
+        width: 100%;
         height: 50svh;
         border: 0;
+        border-bottom: 1px solid black;
     }
 </style>

@@ -167,7 +167,9 @@
 
 <style>
   main {
+    margin: 0 auto;
     text-align: center;
+    width: var(--fullwidth);
   }
 
   .rowSelectorContainer {

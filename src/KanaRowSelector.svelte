@@ -1,9 +1,17 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { KANA_ROWS, type KanaKind, type KanaRowName } from "./lib";
   let {
     kind,
     isRowSelected = $bindable(),
   }: { kind: KanaKind; isRowSelected: Record<KanaRowName, boolean> } = $props();
+
+  let allCheckbox: HTMLInputElement | undefined = $state();
+  const synchronizeAllCheckbox = () => {
+    allCheckbox!.checked = Object.values(isRowSelected).every((v) => v);
+  };
+
+  onMount(synchronizeAllCheckbox);
 </script>
 
 <div>
@@ -16,10 +24,11 @@
           isRowSelected[row as KanaRowName] = ev.currentTarget.checked;
         }
       }}
+      bind:this={allCheckbox}
     />
     all {kind}
   </label>
-  <ul>
+  <ul onchange={synchronizeAllCheckbox}>
     {#each Object.keys(KANA_ROWS[kind as KanaKind]) as rowName}
       <li>
         <label>
