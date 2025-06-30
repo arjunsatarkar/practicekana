@@ -4,8 +4,8 @@
   import WordResults from "./WordResults.svelte";
   import FinalResults from "./FinalResults.svelte";
 
-  import { KANA_ROWS, type KanaRowName } from "./lib";
-  import kanaWords from "../data/kana_words.json";
+  import { KANA_ROWS, type KanaRowName } from "$lib/index";
+  import kanaWords from "../../data/kana_words.json";
 
   import { SvelteSet } from "svelte/reactivity";
 
@@ -46,13 +46,14 @@
   let validWords: string[] = $state([]);
   let currentWord = $derived(validWords[validWords.length - 1]);
   let lastAnswer = $state("");
+  let lastComputedAnswer = $state("");
   let lastAnswerCorrect: boolean | undefined = $state();
   let completedWords: [string, string, boolean][] = $state([]);
   let completedRounds = $derived(completedWords.length);
   let score = $state(0);
 
-  const updateScore = () => {
-    completedWords.push([validWords.pop()!, lastAnswer, lastAnswerCorrect!]);
+  const advanceRound = () => {
+    completedWords.push([validWords.pop()!, lastComputedAnswer, lastAnswerCorrect!]);
     score += +lastAnswerCorrect!;
   };
 </script>
@@ -107,10 +108,11 @@
     <div class="wordResultsContainer">
       <WordResults
         word={currentWord}
-        answer={lastAnswer}
+        userAnswer={lastAnswer}
+        bind:computedAnswer={lastComputedAnswer}
         bind:correct={lastAnswerCorrect}
         onsubmit={() => {
-          updateScore();
+          advanceRound();
           if (validWords.length) {
             currentView = "READ_WORD";
           } else {
@@ -139,7 +141,7 @@
       value="End Game"
       onclick={() => {
         if (currentView === "WORD_RESULTS") {
-          updateScore();
+          advanceRound();
         }
         currentView = "FINAL_RESULTS";
       }}
@@ -157,20 +159,9 @@
 </main>
 <hr />
 
-<footer>
-  <small>
-    &copy; 2025-present <a href="https://arjunsatarkar.net">Arjun Satarkar.</a
-    ><br />
-    get the <a href={__SOURCE_REPO__}>source code</a>&nbsp;| read the
-    <a href="/assets/licenses.txt">licenses</a>
-  </small>
-</footer>
-
 <style>
   main {
-    margin: 0 auto;
     text-align: center;
-    width: var(--fullwidth);
   }
 
   .rowSelectorContainer {

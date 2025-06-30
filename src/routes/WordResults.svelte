@@ -4,21 +4,23 @@
 
     let {
         word,
-        answer,
+        userAnswer,
+        computedAnswer = $bindable(),
         correct = $bindable(),
         onsubmit,
     }: {
         word: string;
-        answer: string;
+        userAnswer: string;
+        computedAnswer: string,
         correct: boolean | undefined;
         onsubmit: () => void;
     } = $props();
 
     const wiktionaryUrl = `https://en.m.wiktionary.org/wiki/${encodeURIComponent(word)}#Japanese`;
 
-    const computedHepburn = toRomaji(word);
+    computedAnswer = toRomaji(word);
 
-    correct = answer.toLowerCase() === computedHepburn;
+    correct = userAnswer.toLowerCase() === computedAnswer;
 
     let submitInput: HTMLInputElement | undefined = $state();
     onMount(() => {
@@ -32,8 +34,8 @@
 
 <div class="container">
     <span class="word" lang="ja">{word}</span><br />
-    You entered: {answer}<br />
-    Our romanization is: {computedHepburn}
+    You entered: {userAnswer}<br />
+    Our romanization is: {computedAnswer}
     <figure>
         <iframe src={wiktionaryUrl} title="Wiktionary page for {word}"></iframe>
         <figcaption>

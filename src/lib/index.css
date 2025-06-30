@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Noto Sans JP";
-    src: url("./assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf") format("truetype");
+    src: url("../assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf") format("truetype");
     font-display: swap;
 }
 
@@ -31,6 +31,11 @@ hr {
     width: var(--fullwidth);
 }
 
+main {
+    width: var(--fullwidth);
+    margin: 0 auto;
+}
+
 h1,
 h2,
 h3,
@@ -41,7 +46,8 @@ h6 {
     text-wrap: balance;
 }
 
-header, footer {
+header,
+footer {
     text-align: center;
 }
 

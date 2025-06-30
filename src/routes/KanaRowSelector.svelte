@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { KANA_ROWS, type KanaKind, type KanaRowName } from "./lib";
+  import { KANA_ROWS, type KanaKind, type KanaRowName } from "$lib/index";
   let {
     kind,
     isRowSelected = $bindable(),

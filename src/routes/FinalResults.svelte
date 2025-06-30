@@ -17,7 +17,7 @@
 <span class="finalScore">You scored {score}&nbsp;/&nbsp;{rounds}</span>
 {#if score >= 3 && score === rounds}
     <span
-        ><a href="https://ichigoproduction.com/talent/arima.html">Arima Kana</a>
+        ><a href="https://ichigoproduction.com/talent/arima.html">Kana Arima</a>
         congratulates you.</span
     >
 {/if}
@@ -45,15 +45,13 @@
         <thead>
             <tr>
                 <th>Word</th>
-                <th>You Answered</th>
                 <th>Score</th>
             </tr></thead
         >
         <tbody>
             {#each words as [word, answer, correct]}
                 <tr>
-                    <td lang="ja">{word}</td>
-                    <td>{answer}</td>
+                    <td><span lang="ja">{word}</span> ({answer})</td>
                     <td>{(correct && "✅") || "❌"}</td></tr
                 >
             {/each}
@@ -61,7 +59,6 @@
         <tfoot>
             <tr>
                 <th>Total</th>
-                <td></td>
                 <td>{score} / {rounds}</td>
             </tr>
         </tfoot>
