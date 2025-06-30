@@ -18,7 +18,7 @@
 
     const computedHepburn = toRomaji(word);
 
-    correct = answer === computedHepburn;
+    correct = answer.toLowerCase() === computedHepburn;
 
     let submitInput: HTMLInputElement | undefined = $state();
     onMount(() => {
