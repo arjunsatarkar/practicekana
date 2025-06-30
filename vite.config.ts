@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import license from "vite-plugin-license";
+import { compression } from 'vite-plugin-compression2'
 import path from "node:path";
 
 
@@ -17,6 +18,9 @@ export default defineConfig({
           file: path.join(__dirname, 'dist/assets', 'licenses.txt'),
         },
       },
+    }),
+    compression({
+      include: /\.(html|xml|css|json|js|mjs|svg|yaml|yml|toml|ttf|txt)$/
     })
   ],
   define: {
