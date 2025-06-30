@@ -1,6 +1,7 @@
 @font-face {
     font-family: "Noto Sans JP";
     src: url("./assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf") format("truetype");
+    font-display: swap;
 }
 
 :root {
