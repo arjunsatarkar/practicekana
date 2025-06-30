@@ -1,14 +1,22 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Practice Kana Words</title>
-    <link rel="preload" href="./src/assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <noscript>JavaScript is required for this site.</noscript>
-  </body>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice Kana Words</title>
+  <link rel="preload" href="./src/assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf" as="font" type="font/ttf"
+    crossorigin>
+  {{> page_metadata
+  title="Practice Kana Words"
+  description="Practice the katakana and hiragana you've learned by reading words, then see their meanings."
+  }}
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+  <noscript>JavaScript is required for this site.</noscript>
+</body>
+
 </html>
