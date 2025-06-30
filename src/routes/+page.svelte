@@ -18,10 +18,11 @@
         crossorigin=""
     />
     <title>{title}</title>
+    <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={__APP_HOME__} />
-    <meta property="og:image" content="{image}" />
+    <meta property="og:image" content={image} />
     <meta property="og:description" content={description} />
 </svelte:head>
 
