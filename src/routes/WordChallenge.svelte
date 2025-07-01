@@ -4,10 +4,10 @@
     let {
         word,
         onsubmit,
-    }: { word: string; onsubmit: (enteredRomaji: string) => void } = $props();
+    }: { word: string; onsubmit: (userAnswer: string) => void } = $props();
 
     let romajiInputElement: HTMLInputElement;
-    let enteredRomaji = $state("");
+    let userAnswer = $state("");
 
     onMount(() => romajiInputElement.focus());
 </script>
@@ -17,8 +17,8 @@
     <form
         onsubmit={(ev) => {
             ev.preventDefault();
-            onsubmit(enteredRomaji);
-            enteredRomaji = "";
+            onsubmit(userAnswer);
+            userAnswer = "";
         }}
     >
         <label
@@ -26,10 +26,10 @@
             <input
                 type="text"
                 bind:this={romajiInputElement}
-                bind:value={enteredRomaji}
+                bind:value={userAnswer}
             />
         </label>
-        <input type="submit" value="Submit" disabled={!enteredRomaji} />
+        <input type="submit" value="Submit" disabled={!userAnswer} />
     </form>
 </div>
 

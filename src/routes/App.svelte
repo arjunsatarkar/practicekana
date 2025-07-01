@@ -98,8 +98,8 @@
     <div class="wordCardContainer">
       <WordCard
         word={currentWord}
-        onsubmit={(enteredRomaji) => {
-          lastAnswer = enteredRomaji;
+        onsubmit={(userAnswer) => {
+          lastAnswer = userAnswer;
           currentView = "WORD_RESULTS";
         }}
       ></WordCard>
