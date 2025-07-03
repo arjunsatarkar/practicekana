@@ -6,10 +6,23 @@
             .match(/^(?:git\+)?(https?:\/\/.+)/);
         return (result && result[1]) || null;
     };
+
+    const LICENSES_JSON_PATH = "/oss-licenses.json";
 </script>
 
+<svelte:head>
+    <link
+        rel="preload"
+        href={LICENSES_JSON_PATH}
+        type="application/json"
+        as="fetch"
+        crossorigin="anonymous"
+    />
+</svelte:head>
+
 <main>
-    {#await fetch("/oss-licenses.json") then result}
+    <p>Get the <a href={LICENSES_JSON_PATH}>license info as JSON</a>.</p>
+    {#await fetch(LICENSES_JSON_PATH) then result}
         {#await result.json() then licenses}
             {#each licenses as licenseInfo}
                 {@const linkableRepo = getLinkableRepo(licenseInfo.repository)}

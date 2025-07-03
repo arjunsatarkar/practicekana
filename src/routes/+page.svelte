@@ -2,7 +2,8 @@
     import App from "./App.svelte";
     //import NotoSansJPRegular from "../assets/fonts/NotoSansJP/NotoSansJP-Regular.otf";
     // @ts-ignore
-    import image from "../assets/sutaa.png?format=webp&w=1024&quality=100&effort=max&lossless";
+    import image from "$lib/assets/sutaa.png?format=webp&w=1024&quality=100&effort=max&lossless";
+    import NotoSansJP from "$lib/assets/fonts/NotoSansJP/NotoSansJP-Regular.otf";
 
     const title = "Practice Kana Words";
     const description =
@@ -17,6 +18,13 @@
     <meta property="og:url" content={__APP_HOME__} />
     <meta property="og:image" content={image} />
     <meta property="og:description" content={description} />
+    <link
+        rel="preload"
+        href={NotoSansJP}
+        as="font"
+        type="font/otf"
+        crossorigin="anonymous"
+    />
 </svelte:head>
 
 <App></App>
