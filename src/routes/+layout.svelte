@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "$lib/index.css";
+  import "$lib/assets/index.css";
   import { repository } from "../../package.json";
 
   let { children } = $props();

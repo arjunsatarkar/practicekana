@@ -1,9 +1,3 @@
-@font-face {
-    font-family: "Noto Sans JP";
-    src: url("$lib/assets/fonts/NotoSansJP/NotoSansJP-Regular.otf") format("opentype");
-    font-display: swap;
-}
-
 :root {
     --font-size-normal: 1.2rem;
     --font-size-prominent: 3em;
@@ -49,10 +43,6 @@ h6 {
 header,
 footer {
     text-align: center;
-}
-
-[lang="ja"] {
-    font-family: "Noto Sans JP";
 }
 
 a:visited {

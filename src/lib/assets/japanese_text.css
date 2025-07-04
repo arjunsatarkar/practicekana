@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Noto Sans JP";
+    src: url("$lib/assets/fonts/NotoSansJP/NotoSansJP-Regular.otf") format("opentype");
+    font-display: swap;
+}
+
+[lang="ja"] {
+    font-family: "Noto Sans JP";
+}
