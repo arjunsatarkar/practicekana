@@ -1,6 +1,8 @@
 <script lang="ts">
-    let { children } = $props();
-    import "$lib/index.css";
+  import "$lib/index.css";
+  import { repository } from "../../package.json";
+
+  let { children } = $props();
 </script>
 
 {@render children()}
@@ -9,6 +11,7 @@
   <small>
     &copy; 2025-present <a href="https://arjunsatarkar.net">Arjun Satarkar.</a
     ><br />
-    get the <a href={__SOURCE_REPO__}>source code</a>&nbsp;| see the <a href="/licenses">licenses</a>
+    get the <a href={repository.url}>source code</a>&nbsp;| see the
+    <a href="/licenses">licenses</a>
   </small>
 </footer>

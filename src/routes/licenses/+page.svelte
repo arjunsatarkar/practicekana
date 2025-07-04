@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import NavBack from "../NavBack.svelte";
+    import { name as projectName } from "../../../package.json";
 
     const getLinkableRepo = (repo: string | undefined): string | null => {
         const result = repo
@@ -11,7 +12,19 @@
     };
 
     const LICENSES_JSON_PATH = "/oss-licenses.json";
-    let licenses_json: Record<string, string>[] = $state([]);
+
+    type LicensesJson = Record<string, string>[];
+    let licensesJson: LicensesJson = $state([]);
+
+    const lexCompare = (a: string, b: string) => {
+        if (a < b) {
+            return -1;
+        } else if (a > b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    };
 
     onMount(() =>
         fetch(LICENSES_JSON_PATH)
@@ -22,8 +35,15 @@
                     throw new Error("failed to fetch licenses");
                 }
             })
-            .then((json) => {
-                licenses_json = json;
+            .then((json: LicensesJson) => {
+                json.sort((a, b) => lexCompare(a.name, b.name));
+                json.unshift(
+                    ...json.splice(
+                        json.findIndex((v) => v.name === projectName),
+                        1,
+                    ),
+                );
+                licensesJson = json;
             })
             .catch((error) => console.warn(error)),
     );
@@ -43,7 +63,7 @@
 </header>
 <main>
     <p>Get the <a href={LICENSES_JSON_PATH}>license info as JSON</a>.</p>
-    {#each licenses_json as licenseInfo}
+    {#each licensesJson as licenseInfo}
         {@const linkableRepo = getLinkableRepo(licenseInfo.repository)}
 
         <div>

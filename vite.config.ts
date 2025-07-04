@@ -13,7 +13,6 @@ export default defineConfig({
 	],
 	define: {
 		__APP_HOME__: JSON.stringify("https://practicekana.arjunsatarkar.net/"),
-		__SOURCE_REPO__: JSON.stringify("https://github.com/arjunsatarkar/practicekana")
 	},
 	server: {
 		fs: {
