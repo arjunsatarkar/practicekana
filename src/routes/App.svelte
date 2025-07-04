@@ -88,6 +88,8 @@
         ></KanaRowSelector>
       </div>
 
+      <noscript><div>JavaScript is required to use this site.</div></noscript>
+
       <input
         type="submit"
         value="Start!"

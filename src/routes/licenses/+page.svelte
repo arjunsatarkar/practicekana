@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import NavBack from "../NavBack.svelte";
-    import { name as projectName } from "../../../package.json";
 
     const getLinkableRepo = (repo: string | undefined): string | null => {
         const result = repo
@@ -39,7 +38,7 @@
                 json.sort((a, b) => lexCompare(a.name, b.name));
                 json.unshift(
                     ...json.splice(
-                        json.findIndex((v) => v.name === projectName),
+                        json.findIndex((v) => v.name === __PROJECT_NAME__),
                         1,
                     ),
                 );
