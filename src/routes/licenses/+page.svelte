@@ -50,6 +50,7 @@
 </script>
 
 <svelte:head>
+    <title>OSS Licenses | Practice Kana</title>
     <link
         rel="preload"
         href={LICENSES_JSON_PATH}
