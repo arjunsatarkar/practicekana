@@ -5,7 +5,7 @@
 	"type": "module",
 	"license": "MIT",
 	"repository": {
-		"url": "https://github.com/arjunsatarkar/practice_kana_words"
+		"url": "https://github.com/arjunsatarkar/practicekana"
 	},
 	"scripts": {
 		"dev": "vite dev",
