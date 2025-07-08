@@ -17,6 +17,7 @@
     <meta property="og:url" content={__APP_HOME__} />
     <meta property="og:image" content={image} />
     <meta property="og:description" content={description} />
+    <link rel="canonical" href={__CANONICAL_URL__} />
 </svelte:head>
 
 <App></App>
