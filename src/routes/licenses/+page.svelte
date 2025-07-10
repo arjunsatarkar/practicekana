@@ -57,7 +57,6 @@
         as="fetch"
         crossorigin="anonymous"
     />
-    <link rel="canonical" href={__CANONICAL_URL__} />
 </svelte:head>
 <header>
     <NavBack toName="home" toUrl="/"></NavBack>

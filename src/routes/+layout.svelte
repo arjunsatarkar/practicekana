@@ -1,8 +1,13 @@
 <script lang="ts">
   import "$lib/assets/index.css";
+  import { page } from "$app/state";
 
   let { children } = $props();
 </script>
+
+<svelte:head>
+  <link rel="canonical" href={new URL(page.url.pathname, __APP_HOME__).toString()}>
+</svelte:head>
 
 {@render children()}
 

@@ -9,7 +9,6 @@ declare global {
 		// interface Platform {}
 	}
 	declare const __APP_HOME__: string;
-	declare const __CANONICAL_URL__: string;
 	declare const __PROJECT_NAME__: string;
 	declare const __REPO_URL__: string;
 }
