@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { toRomaji } from "wanakana";
+    import { writable } from "svelte/store";
 
     let {
         word,
@@ -11,16 +12,24 @@
     }: {
         word: string;
         userAnswer: string;
-        computedAnswer: string,
+        computedAnswer: string;
         correct: boolean | undefined;
         onsubmit: () => void;
     } = $props();
 
+    const moreInfoOpenKey = "moreInfoOpen";
     const wiktionaryUrl = `https://en.m.wiktionary.org/wiki/${encodeURIComponent(word)}#Japanese`;
 
     computedAnswer = toRomaji(word);
-
     correct = userAnswer.toLowerCase() === computedAnswer;
+
+    const moreInfoOpenInitial: boolean = JSON.parse(
+        localStorage.getItem(moreInfoOpenKey) || "false",
+    );
+    const moreInfoOpen = writable(moreInfoOpenInitial);
+    moreInfoOpen.subscribe((value) => {
+        localStorage.setItem(moreInfoOpenKey, JSON.stringify(value));
+    });
 
     let submitInput: HTMLInputElement | undefined = $state();
     onMount(() => {
@@ -33,15 +42,19 @@
 </script>
 
 <div class="container">
-    <span class="word" lang="ja">{word}</span><br />
-    You entered: {userAnswer}<br />
-    Our romanization is: {computedAnswer}
-    <figure>
-        <iframe src={wiktionaryUrl} title="Wiktionary page for {word}"></iframe>
-        <figcaption>
-            <a href={wiktionaryUrl} target="_blank"><span lang="ja">{word}</span> on Wiktionary</a>
-        </figcaption>
-    </figure>
+    <span class="word" lang="ja">{word}</span>
+    <span>You entered: {userAnswer}</span>
+    <span>Our romanization is: {computedAnswer}</span>
+    <div class="moreInfoContainer">
+        <details bind:open={$moreInfoOpen}>
+            <summary>Definition, etymology, and more info</summary>
+            <iframe src={wiktionaryUrl} title="Wiktionary page for {word}"
+            ></iframe>
+        </details>
+        <a href={wiktionaryUrl} target="_blank"
+            ><span lang="ja">{word}</span> on Wiktionary</a
+        >
+    </div>
     <form
         onsubmit={(e) => {
             e.preventDefault();
@@ -74,18 +87,23 @@
 </div>
 
 <style>
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
     .word {
         font-size: var(--font-size-prominent);
     }
 
-    figure {
-        margin: 0;
+    .moreInfoContainer {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     iframe {
         width: 100%;
         height: 50svh;
-        border: 0;
-        border-bottom: 1px solid black;
+        border: 1px solid black;
     }
 </style>

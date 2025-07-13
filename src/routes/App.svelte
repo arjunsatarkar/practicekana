@@ -178,6 +178,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 1em;
+    row-gap: 1rem;
   }
 </style>
