@@ -1,6 +1,6 @@
 <script lang="ts">
-  import KanaRowSelector from "./KanaRowSelector.svelte";
-  import WordCard from "./WordChallenge.svelte";
+  import KanaRowChecklist from "./KanaRowChecklist.svelte";
+  import WordChallenge from "./WordChallenge.svelte";
   import WordResults from "./WordResults.svelte";
   import FinalResults from "./FinalResults.svelte";
 
@@ -10,10 +10,10 @@
   import { SvelteSet } from "svelte/reactivity";
 
   let currentView:
-    | "SELECT_ROWS"
-    | "READ_WORD"
+    | "GAME_SETUP"
+    | "WORD_CHALLENGE"
     | "WORD_RESULTS"
-    | "FINAL_RESULTS" = $state("SELECT_ROWS");
+    | "FINAL_RESULTS" = $state("GAME_SETUP");
 
   const trueEntries = (obj: Object) =>
     Object.entries(obj)
@@ -64,28 +64,28 @@
 <hr />
 
 <main>
-  {#if currentView === "SELECT_ROWS"}
+  {#if currentView === "GAME_SETUP"}
     <h2>Pick which rows of kana to enable!</h2>
     <form
       onsubmit={(ev) => {
         ev.preventDefault();
         validWords = getValidWords();
-        currentView = "READ_WORD";
+        currentView = "WORD_CHALLENGE";
       }}
     >
       <div class="rowSelectorContainer">
-        <KanaRowSelector
+        <KanaRowChecklist
           kind="katakana"
           bind:isRowSelected={
             isRowSelected.katakana as Record<KanaRowName, boolean>
           }
-        ></KanaRowSelector>
-        <KanaRowSelector
+        ></KanaRowChecklist>
+        <KanaRowChecklist
           kind="hiragana"
           bind:isRowSelected={
             isRowSelected.hiragana as Record<KanaRowName, boolean>
           }
-        ></KanaRowSelector>
+        ></KanaRowChecklist>
       </div>
 
       <noscript><div>JavaScript is required to use this site.</div></noscript>
@@ -96,15 +96,15 @@
         disabled={kanaSelected.length === 0}
       />
     </form>
-  {:else if currentView === "READ_WORD"}
-    <div class="wordCardContainer">
-      <WordCard
+  {:else if currentView === "WORD_CHALLENGE"}
+    <div>
+      <WordChallenge
         word={currentWord}
         onsubmit={(userAnswer) => {
           lastAnswer = userAnswer;
           currentView = "WORD_RESULTS";
         }}
-      ></WordCard>
+      ></WordChallenge>
     </div>
   {:else if currentView === "WORD_RESULTS"}
     <div class="wordResultsContainer">
@@ -116,7 +116,7 @@
         onsubmit={() => {
           advanceRound();
           if (validWords.length) {
-            currentView = "READ_WORD";
+            currentView = "WORD_CHALLENGE";
           } else {
             currentView = "FINAL_RESULTS";
           }
@@ -132,12 +132,12 @@
         onbacktostart={() => {
           completedWords = [];
           score = 0;
-          currentView = "SELECT_ROWS";
+          currentView = "GAME_SETUP";
         }}
       ></FinalResults>
     </div>
   {/if}
-  {#if currentView === "READ_WORD" || currentView === "WORD_RESULTS"}
+  {#if currentView === "WORD_CHALLENGE" || currentView === "WORD_RESULTS"}
     <input
       type="button"
       value="End Game"
