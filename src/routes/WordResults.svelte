@@ -24,7 +24,7 @@
     correct = userAnswer.toLowerCase() === computedAnswer;
 
     const moreInfoOpenInitial: boolean = JSON.parse(
-        localStorage.getItem(moreInfoOpenKey) || "false",
+        localStorage.getItem(moreInfoOpenKey) || "true",
     );
     const moreInfoOpen = writable(moreInfoOpenInitial);
     moreInfoOpen.subscribe((value) => {
