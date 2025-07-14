@@ -41,3 +41,10 @@ export const KANA_ROWS: Readonly<Record<KanaKind, Readonly<Record<KanaRowName, r
         n: Object.freeze(["ん"])
     })
 });
+
+  export type CompletedWordInfo = {
+    word: string,
+    computedAnswer: string,
+    markedCorrect: boolean
+  };
+  

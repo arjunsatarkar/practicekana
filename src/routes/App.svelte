@@ -1,14 +1,13 @@
 <script lang="ts">
+  import { KANA_ROWS, type CompletedWordInfo, type KanaRowName } from "$lib";
+  import FinalResults from "./FinalResults.svelte";
   import KanaRowChecklist from "./KanaRowChecklist.svelte";
+  import kanaWords from "../../data/kana_words.json";
   import WordChallenge from "./WordChallenge.svelte";
   import WordResults from "./WordResults.svelte";
-  import FinalResults from "./FinalResults.svelte";
-
-  import { KANA_ROWS, type KanaRowName } from "$lib/index";
-  import kanaWords from "../../data/kana_words.json";
 
   import { SvelteSet } from "svelte/reactivity";
-
+  
   let currentView:
     | "GAME_SETUP"
     | "WORD_CHALLENGE"
@@ -24,16 +23,14 @@
     katakana: {},
     hiragana: {},
   });
-  let kanaSelected: string[] = $derived(
-    [
-      trueEntries(isRowSelected.katakana).map(
-        (kanaRowName) => KANA_ROWS.katakana[kanaRowName as KanaRowName],
-      ),
-      trueEntries(isRowSelected.hiragana).map(
-        (kanaRowName) => KANA_ROWS.hiragana[kanaRowName as KanaRowName],
-      ),
-    ].flat(2),
-  );
+  let kanaSelected: string[] = $derived([
+    ...trueEntries(isRowSelected.katakana).flatMap(
+      (kanaRowName) => KANA_ROWS.katakana[kanaRowName as KanaRowName],
+    ),
+    ...trueEntries(isRowSelected.hiragana).flatMap(
+      (kanaRowName) => KANA_ROWS.hiragana[kanaRowName as KanaRowName],
+    ),
+  ]);
   let charsEnabled = $derived(new SvelteSet([...kanaSelected, "・", "ー"]));
 
   const getValidWords = () =>
@@ -48,12 +45,16 @@
   let lastAnswer = $state("");
   let lastComputedAnswer = $state("");
   let lastAnswerCorrect: boolean | undefined = $state();
-  let completedWords: [string, string, boolean][] = $state([]);
+  let completedWords: CompletedWordInfo[] = $state([]);
   let completedRounds = $derived(completedWords.length);
   let score = $state(0);
 
   const advanceRound = () => {
-    completedWords.push([validWords.pop()!, lastComputedAnswer, lastAnswerCorrect!]);
+    completedWords.push({
+      word: validWords.pop()!,
+      computedAnswer: lastComputedAnswer,
+      markedCorrect: lastAnswerCorrect!,
+    });
     score += +lastAnswerCorrect!;
   };
 </script>

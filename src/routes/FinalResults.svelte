@@ -1,13 +1,15 @@
 <script lang="ts">
+    import type { CompletedWordInfo } from "$lib";
+
     let {
         score,
         rounds,
-        words,
+        words: completedWords,
         onbacktostart,
     }: {
         score: number;
         rounds: number;
-        words: [string, string, boolean][];
+        words: CompletedWordInfo[];
         onbacktostart: () => void;
     } = $props();
 
@@ -49,10 +51,10 @@
             </tr></thead
         >
         <tbody>
-            {#each words as [word, answer, correct]}
+            {#each completedWords as completedWord}
                 <tr>
-                    <td><span lang="ja">{word}</span> ({answer})</td>
-                    <td>{(correct && "✅") || "❌"}</td></tr
+                    <td><span lang="ja">{completedWord.word}</span> ({completedWord.computedAnswer})</td>
+                    <td>{(completedWord.markedCorrect && "✅") || "❌"}</td></tr
                 >
             {/each}
         </tbody>
