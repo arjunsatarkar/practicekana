@@ -42,9 +42,8 @@ export const KANA_ROWS: Readonly<Record<KanaKind, Readonly<Record<KanaRowName, r
     })
 });
 
-  export type CompletedWordInfo = {
+export type CompletedWordInfo = Readonly<{
     word: string,
     computedAnswer: string,
     markedCorrect: boolean
-  };
-  
+}>;

@@ -7,7 +7,7 @@
   import WordResults from "./WordResults.svelte";
 
   import { SvelteSet } from "svelte/reactivity";
-  
+
   let currentView:
     | "GAME_SETUP"
     | "WORD_CHALLENGE"
@@ -50,11 +50,11 @@
   let score = $state(0);
 
   const advanceRound = () => {
-    completedWords.push({
+    completedWords.push(Object.freeze({
       word: validWords.pop()!,
       computedAnswer: lastComputedAnswer,
       markedCorrect: lastAnswerCorrect!,
-    });
+    }));
     score += +lastAnswerCorrect!;
   };
 </script>
