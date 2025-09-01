@@ -5,18 +5,22 @@ import json
 import sys
 
 
-def char_ranges(*args: tuple[str, str]) -> set[str]:
-    result = set()
-    for first, last in args:
-        result |= set(chr(c) for c in range(ord(first), ord(last) + 1))
-    return result
+def char_range(first: str, last: str) -> set[str]:
+    return set(chr(c) for c in range(ord(first), ord(last) + 1))
 
 
-KANA = char_ranges(
-    ("\N{KATAKANA-HIRAGANA DOUBLE HYPHEN}", "\N{KATAKANA DIGRAPH KOTO}"),
-    ("\N{HIRAGANA LETTER SMALL A}", "\N{HIRAGANA LETTER SMALL KE}"),
-    ("\N{COMBINING KATAKANA-HIRAGANA VOICED SOUND MARK}", "\N{HIRAGANA DIGRAPH YORI}"),
+KATAKANA = char_range("\N{KATAKANA LETTER SMALL A}", "\N{KATAKANA LETTER VO}")
+HIRAGANA = char_range("\N{HIRAGANA LETTER SMALL A}", "\N{HIRAGANA LETTER SMALL KE}")
+CHOONPU = "\N{KATAKANA-HIRAGANA PROLONGED SOUND MARK}"
+OTHER_CHARS = {"\N{KATAKANA MIDDLE DOT}", CHOONPU}.union(
+    char_range(
+        "\N{COMBINING KATAKANA-HIRAGANA VOICED SOUND MARK}",
+        "\N{KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK}",
+    )
 )
+
+KANA = set.union(KATAKANA, HIRAGANA, OTHER_CHARS)
+
 OUT_PATH = Path("data/kana_words.json")
 RAW_DATA_FILE_PATH = Path("data/raw-wiktextract-data.jsonl.gz")
 UPDATE_STATUS_EVERY_WORDS = 10_000
@@ -69,6 +73,10 @@ with gzip.open(RAW_DATA_FILE_PATH, "r") as raw_data_file:
             and has_romanization
             and all(c in KANA for c in word)
             and all(category not in EXCLUDED_CATEGORIES for category in categories)
+        ) or (
+            # Exclude if choonpu in a word with hiragana; our romanization library doesn't like it (non-standard)
+            any(c in HIRAGANA for c in word)
+            and CHOONPU in word
         ):
             continue
 
