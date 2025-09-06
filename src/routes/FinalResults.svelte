@@ -17,7 +17,7 @@
 </script>
 
 <span class="finalScore">You scored {score}&nbsp;/&nbsp;{rounds}</span>
-{#if score >= 3 && score === rounds}
+{#if score >= 3 && (score / rounds) >= (99 / 100)}
     <span
         ><a href="https://ichigoproduction.com/talent/arima.html">Kana Arima</a>
         congratulates you.</span
